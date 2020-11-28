@@ -194,6 +194,7 @@ void _delay_ms(const int delay);
   #pragma GCC diagnostic ignored "-Wunused-function"
 #endif
 
+
 /*
 extern "C" {
   int freeMemory();
@@ -209,7 +210,6 @@ static int freeMemory() {
   return top;
 }
 */
-
 static int freeMemory() {
   volatile char top;
   return &top - reinterpret_cast<char*>(_sbrk(0));
