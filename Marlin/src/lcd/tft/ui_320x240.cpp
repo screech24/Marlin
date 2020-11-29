@@ -205,7 +205,7 @@ void draw_fan_status(uint16_t x, uint16_t y, const bool blink) {
 
   uint8_t fanSpeed = thermalManager.fan_speed[0];
   MarlinImage image;
-    uint16_t Color;
+  uint16_t Color;
   Color = fanSpeed > 0 ? COLOR_AQUA : COLOR_FAN;
 
   if (fanSpeed >= 127)
