@@ -140,7 +140,7 @@
     //#define E1_HARDWARE_SERIAL Serial1
 
     //Set *_SERIAL_TX_PIN and *_SERIAL_RX_PIN to match for all drivers on the same PIN to the same Slave Address.
-    #define  X_SLAVE_ADDRESS 0
+    #define  X_SLAVE_ADDRESS 0  
     #define  Y_SLAVE_ADDRESS 0
     #define  Z_SLAVE_ADDRESS 0
     #define E0_SLAVE_ADDRESS 0
