@@ -98,9 +98,9 @@ void MarlinUI::clear_lcd() {
     tft.canvas(0, 0, TFT_WIDTH, TFT_HEIGHT);
     tft.add_image(0, 0, imgBootScreen);  // MarlinLogo320x240x16
 
-    #ifdef WEBSITE_URL
-      tft.add_text(4, 188, COLOR_WEBSITE_URL, WEBSITE_URL);
-    #endif
+    //#ifdef WEBSITE_URL
+      //tft.add_text(4, 188, COLOR_WEBSITE_URL, WEBSITE_URL);
+    //#endif
 
     tft.queue.sync();
     safe_delay(BOOTSCREEN_TIMEOUT);
@@ -205,6 +205,8 @@ void draw_fan_status(uint16_t x, uint16_t y, const bool blink) {
 
   uint8_t fanSpeed = thermalManager.fan_speed[0];
   MarlinImage image;
+  uint16_t Color;
+  Color = fanSpeed > 0 ? COLOR_AQUA : COLOR_FAN;
 
   if (fanSpeed >= 127)
     image = blink ? imgFanFast1 : imgFanFast0;
@@ -213,11 +215,11 @@ void draw_fan_status(uint16_t x, uint16_t y, const bool blink) {
   else
     image = imgFanIdle;
 
-  tft.add_image(0, 10, image, COLOR_FAN);
+  tft.add_image(0, 10, image, Color);
 
   tft_string.set((uint8_t *)ui8tostr4pctrj(thermalManager.fan_speed[0]));
   tft_string.trim();
-  tft.add_text(tft_string.center(64) + 6, 72, COLOR_FAN, tft_string);
+  tft.add_text(tft_string.center(64) + 6, 72, Color, tft_string);
 }
 
 void MarlinUI::draw_status_screen() {
@@ -346,7 +348,7 @@ void MenuItem_static::draw(const uint8_t row, PGM_P const pstr, const uint8_t st
   tft_string.set(pstr, itemIndex, itemString);
   if (vstr)
     tft_string.add(vstr);
-  tft.add_text(tft_string.center(TFT_WIDTH), MENU_TEXT_Y_OFFSET, COLOR_YELLOW, tft_string);
+  tft.add_text(tft_string.center(TFT_WIDTH), MENU_TEXT_Y_OFFSET, COLOR_WHITE, tft_string);
 }
 
 // Draw a generic menu item with pre_char (if selected) and post_char
