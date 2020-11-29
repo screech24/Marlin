@@ -25,10 +25,10 @@
  * MKS Robin nano (STM32F130VET6) board pin assignments
  */
 
-#ifndef __STM32F1__
+/*#ifndef __STM32F1__
   #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
 #endif
-
+*/
 #define BOARD_INFO_NAME "MKS Robin nano"
 
 //
@@ -81,7 +81,7 @@
   // Set Hardware Serial UART only für TCM 2209
   //#define HARDWARE_SERIAL
   // Set Software Serial UART for TMC 2208 / TMC 2209
-  //#define SOFTWARE_SERIAL
+  #define SOFTWARE_SERIAL
 
   #if ENABLED(HARDWARE_SERIAL)
     //#define X_HARDWARE_SERIAL  Serial1
@@ -313,30 +313,43 @@
  * If the screen stays white, disable 'LCD_RESET_PIN'
  * to let the bootloader init the screen.
  */
-#if ENABLED(FSMC_GRAPHICAL_TFT)
-  #define DOGLCD_MOSI -1 // prevent redefine Conditionals_post.h
-  #define DOGLCD_SCK -1
-  #define FSMC_CS_PIN        PD7    // NE4
-  #define FSMC_RS_PIN        PD11   // A0
 
-  //#define LCD_RESET_PIN      PC6    // FSMC_RST
-  #define LCD_USE_DMA_FSMC
-  #define FSMC_DMA_DEV DMA2
-  #define FSMC_DMA_CHANNEL DMA_CH5
-  //#define NO_LCD_REINIT             // Suppress LCD re-initialization
+// Shared FSMC Configs
+#if HAS_FSMC_TFT
+  #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
+  #define DOGLCD_SCK                        -1
 
-  #define LCD_BACKLIGHT_PIN  PD13
+  #define FSMC_CS_PIN                       PD7   // NE4
+  #define FSMC_RS_PIN                       PD11  // A0
 
-  #if ENABLED(TOUCH_BUTTONS)
-    #define TOUCH_CS_PIN     PA7  // SPI2_NSS
-    #define TOUCH_SCK_PIN    PB13 // SPI2_SCK
-    #define TOUCH_MISO_PIN   PB14 // SPI2_MISO
-    #define TOUCH_MOSI_PIN   PB15 // SPI2_MOSI
-  #endif
+  #define TOUCH_CS_PIN                      PA7   // SPI2_NSS
+  #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
+  #define TOUCH_MISO_PIN                    PB14  // SPI2_MISO
+  #define TOUCH_MOSI_PIN                    PB15  // SPI2_MOSI
 
-  #define FSMC_UPSCALE 3
-  #define LCD_FULL_PIXEL_WIDTH  480
-  #define LCD_PIXEL_OFFSET_X    48
-  #define LCD_FULL_PIXEL_HEIGHT 320
-  #define LCD_PIXEL_OFFSET_Y    48
+  #define TFT_RESET_PIN                     PC6   // FSMC_RST
+  #define TFT_BACKLIGHT_PIN                 PD13
+
+  #define LCD_USE_DMA_FSMC                        // Use DMA transfers to send data to the TFT
+  #define FSMC_CS_PIN                       PD7
+  #define FSMC_RS_PIN                       PD11
+  #define FSMC_DMA_DEV                      DMA2
+  #define FSMC_DMA_CHANNEL               DMA_CH5
+
+  #define TFT_CS_PIN                 FSMC_CS_PIN
+  #define TFT_RS_PIN                 FSMC_RS_PIN
+
+  #define TOUCH_BUTTONS_HW_SPI
+  #define TOUCH_BUTTONS_HW_SPI_DEVICE          2
+
+  #define TFT_BUFFER_SIZE                  14400
+#endif
+
+#define HAS_SPI_FLASH                          1
+#if HAS_SPI_FLASH
+  #define SPI_FLASH_SIZE               0x1000000  // 16MB
+  #define W25QXX_CS_PIN                     PB12
+  #define W25QXX_MOSI_PIN                   PB15
+  #define W25QXX_MISO_PIN                   PB14
+  #define W25QXX_SCK_PIN                    PB13
 #endif
