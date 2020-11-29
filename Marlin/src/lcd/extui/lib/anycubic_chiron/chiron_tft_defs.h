@@ -91,7 +91,7 @@
 #define MARLIN_msg_ready               PSTR(" Ready.")
 #define MARLIN_msg_print_paused        PSTR("Print Paused")
 #define MARLIN_msg_print_aborted       PSTR("Print Aborted")
-#define MARLIN_msg_extruder_heating    PSTR("E Heating...")
+#define MARLIN_msg_extruder_heating    PSTR("Extruder Heating...")
 #define MARLIN_msg_bed_heating         PSTR("Bed Heating...")
 
 #define MARLIN_msg_nozzle_parked       PSTR("Nozzle Parked")
