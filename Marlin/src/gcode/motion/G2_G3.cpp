@@ -88,7 +88,7 @@ void plan_arc(
   if (clockwise) angular_travel -= RADIANS(360);
 
   // Do a full circle if angular rotation is near 0 and the target is current position
-  if ((!angular_travel || NEAR_ZERO(angular_travel)) && NEAR(current_position[p_axis], cart[p_axis]) && NEAR(current_position[q_axis], cart[q_axis])) {
+  if (!angular_travel || (NEAR_ZERO(angular_travel) && NEAR(current_position[p_axis], cart[p_axis]) && NEAR(current_position[q_axis], cart[q_axis]))) {
     // Preserve direction for circles
     angular_travel = clockwise ? -RADIANS(360) : RADIANS(360);
   }
