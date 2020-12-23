@@ -75,6 +75,9 @@ void plan_arc(
               rt_X = cart[p_axis] - center_P,
               rt_Y = cart[q_axis] - center_Q,
               start_L = current_position[l_axis];
+              
+ // Angle of rotation between position and target from the circle center.
+  float angular_travel;
 
   #ifdef MIN_ARC_SEGMENTS
     uint16_t min_segments = MIN_ARC_SEGMENTS;
@@ -83,8 +86,7 @@ void plan_arc(
   #endif
   if (clockwise) angular_travel -= RADIANS(360);
 
-  // Angle of rotation between position and target from the circle center.
-  float angular_travel;
+
 
   // Do a full circle if starting and ending positions are "identical"
   if (NEAR(current_position[p_axis], cart[p_axis]) && NEAR(current_position[q_axis], cart[q_axis])) {
